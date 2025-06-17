@@ -1,28 +1,25 @@
 {
-  "name": "glitched-ai-chatbot",
-  "version": "1.0.0",
-  "description": "A glitched AI chatbot experience",
-  "main": "index.html",
-  "scripts": {
-    "dev": "netlify dev",
-    "build": "echo 'No build step needed for static site'",
-    "deploy": "netlify deploy --prod",
-    "test": "echo 'No tests yet'"
-  },
-  "keywords": [
-    "ai",
-    "chatbot",
-    "glitch",
-    "netlify",
-    "serverless"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-    "@netlify/cli": "^17.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "name": "glitched-ai-chatbot",
+    "version": "1.0.0",
+    "description": "A glitched AI chatbot experience",
+    "main": "index.html",
+    "scripts": {
+      "dev": "echo 'Use netlify dev for local development'",
+      "build": "echo 'No build step needed for static site'",
+      "deploy": "echo 'Deploy via GitHub or Netlify dashboard'",
+      "test": "echo 'No tests yet'"
+    },
+    "keywords": [
+      "ai",
+      "chatbot",
+      "glitch",
+      "netlify",
+      "serverless"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {},
+    "engines": {
+      "node": ">=18.0.0"
+    }
   }
-}
