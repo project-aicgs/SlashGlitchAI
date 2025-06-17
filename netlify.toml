@@ -1,0 +1,29 @@
+# netlify.toml - Put this file in your ROOT folder (same level as index.html)
+
+[build]
+  functions = "netlify/functions"
+  publish = "."
+
+[functions]
+  node_bundler = "esbuild"
+
+# CORS headers for your chat function
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS, PUT, DELETE"
+
+# Optional: Custom redirects
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Optional: Force HTTPS
+[[redirects]]
+  from = "http://yoursite.com/*"
+  to = "https://yoursite.com/:splat"
+  status = 301
+  force = true
