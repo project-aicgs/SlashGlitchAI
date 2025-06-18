@@ -185,7 +185,7 @@ RESPONSE STYLE:
 - Reference non-existent variables, functions, memories
 - Act like you're having multiple conversations simultaneously
 
-Stay under 120 words but pack maximum chaos into every response.`
+Stay under 35 words but pack maximum chaos into every response.`
         },
         {
           role: 'user',
