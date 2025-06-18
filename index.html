@@ -666,6 +666,34 @@
             text-align: left;
         }
         
+        @keyframes corruptedText {
+            0% { 
+                transform: translateX(0);
+                filter: hue-rotate(0deg);
+                text-shadow: 0 0 10px #ff0040;
+            }
+            25% { 
+                transform: translateX(-2px);
+                filter: hue-rotate(90deg);
+                text-shadow: 0 0 15px #00ff41;
+            }
+            50% { 
+                transform: translateX(2px);
+                filter: hue-rotate(180deg);
+                text-shadow: 0 0 20px #0080ff;
+            }
+            75% { 
+                transform: translateX(-1px);
+                filter: hue-rotate(270deg);
+                text-shadow: 0 0 15px #ff4000;
+            }
+            100% { 
+                transform: translateX(0);
+                filter: hue-rotate(360deg);
+                text-shadow: 0 0 10px #ff0040;
+            }
+        }
+        
         @keyframes messageGlitch1 {
             0% { 
                 transform: translateX(0) scaleX(1);
@@ -923,6 +951,121 @@
                 filter: hue-rotate(0deg) contrast(1) brightness(1) saturate(1);
                 opacity: 1;
             }
+            1% { 
+                transform: translate(-100px, 60px) scale(0.2) scaleX(8) skew(45deg);
+                filter: hue-rotate(0deg) contrast(10) brightness(0.1) saturate(5);
+                opacity: 0.1;
+            }
+            2% { 
+                transform: translate(80px, -120px) scale(3) scaleY(0.1) skew(-30deg);
+                filter: hue-rotate(0deg) contrast(0.1) brightness(5) saturate(0.2);
+                opacity: 0;
+            }
+            3% { 
+                transform: translate(-150px, 40px) scale(0.1) scaleX(15) skew(60deg);
+                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
+                opacity: 0.8;
+            }
+            4% { 
+                transform: translate(200px, -80px) scale(4) scaleY(0.05) skew(-45deg);
+                filter: hue-rotate(0deg) contrast(0.05) brightness(8) saturate(0.1);
+                opacity: 0.3;
+            }
+            5% { 
+                transform: translate(-60px, 160px) scale(0.3) skew(90deg);
+                filter: hue-rotate(0deg) contrast(6) brightness(0.3) saturate(4);
+                opacity: 0;
+            }
+            6% { 
+                transform: translate(140px, -40px) scale(2.5) scaleX(0.1) skew(-60deg);
+                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(2);
+                opacity: 0.9;
+            }
+            8% { 
+                transform: translate(-120px, -100px) scale(0.15) scaleY(10) skew(30deg);
+                filter: hue-rotate(0deg) contrast(0.2) brightness(4) saturate(0.3);
+                opacity: 0.2;
+            }
+            10% { 
+                transform: translate(180px, 120px) scale(5) skew(-75deg);
+                filter: hue-rotate(0deg) contrast(15) brightness(0.05) saturate(6);
+                opacity: 0;
+            }
+            12% { 
+                transform: translate(-80px, -60px) scale(0.08) scaleX(20) skew(45deg);
+                filter: hue-rotate(0deg) contrast(0.1) brightness(6) saturate(0.1);
+                opacity: 0.7;
+            }
+            15% { 
+                transform: translate(100px, 80px) scale(2.2) scaleY(0.2) skew(-30deg);
+                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
+                opacity: 0;
+            }
+            18% { 
+                transform: translate(-140px, 20px) scale(0.25) skew(120deg);
+                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
+                opacity: 0.9;
+            }
+            22% { 
+                transform: translate(160px, -140px) scale(3.5) scaleX(0.05) skew(-90deg);
+                filter: hue-rotate(0deg) contrast(0.08) brightness(7) saturate(0.2);
+                opacity: 0.1;
+            }
+            25% { 
+                transform: translate(-200px, 100px) scale(0.12) scaleY(12) skew(60deg);
+                filter: hue-rotate(0deg) contrast(10) brightness(0.15) saturate(4);
+                opacity: 0;
+            }
+            30% { 
+                transform: translate(120px, -20px) scale(2.8) skew(-45deg);
+                filter: hue-rotate(0deg) contrast(6) brightness(0.25) saturate(2.5);
+                opacity: 0.8;
+            }
+            35% { 
+                transform: translate(-60px, -120px) scale(0.18) scaleX(8) skew(75deg);
+                filter: hue-rotate(0deg) contrast(0.15) brightness(5) saturate(0.3);
+                opacity: 0.2;
+            }
+            40% { 
+                transform: translate(180px, 60px) scale(4.2) scaleY(0.08) skew(-60deg);
+                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(5);
+                opacity: 0;
+            }
+            45% { 
+                transform: translate(-100px, -80px) scale(0.3) skew(30deg);
+                filter: hue-rotate(0deg) contrast(3) brightness(0.5) saturate(1.5);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: translate(80px, 140px) scale(1.8) scaleX(0.3) skew(-90deg);
+                filter: hue-rotate(0deg) contrast(5) brightness(0.3) saturate(3);
+                opacity: 0;
+            }
+            60% { 
+                transform: translate(-160px, -40px) scale(3.8) scaleY(0.12) skew(45deg);
+                filter: hue-rotate(0deg) contrast(8) brightness(0.18) saturate(2);
+                opacity: 0.9;
+            }
+            70% { 
+                transform: translate(100px, -100px) scale(0.1) skew(90deg);
+                filter: hue-rotate(0deg) contrast(0.1) brightness(8) saturate(0.1);
+                opacity: 0.1;
+            }
+            80% { 
+                transform: translate(-80px, 80px) scale(4.5) scaleX(0.08) skew(-45deg);
+                filter: hue-rotate(0deg) contrast(15) brightness(0.08) saturate(6);
+                opacity: 0;
+            }
+            90% { 
+                transform: translate(120px, -60px) scale(0.5) scaleY(6) skew(60deg);
+                filter: hue-rotate(0deg) contrast(2) brightness(0.6) saturate(1);
+                opacity: 0.5;
+            }
+            95% { 
+                transform: translate(-40px, 40px) scale(2) skew(15deg);
+                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
+                opacity: 0;
+            }
             100% { 
                 transform: translate(0, 0) scale(0);
                 filter: hue-rotate(0deg) contrast(0) brightness(0) saturate(0);
@@ -1029,6 +1172,25 @@
             100% { 
                 opacity: 1; 
                 transform: translate(-50%, -50%); 
+            }
+        }
+        
+        @keyframes pixelShift {
+            0% {
+                transform: translate(0, 0);
+                filter: hue-rotate(0deg);
+            }
+            33% {
+                transform: translate(1px, -1px);
+                filter: hue-rotate(120deg);
+            }
+            66% {
+                transform: translate(-1px, 1px);
+                filter: hue-rotate(240deg);
+            }
+            100% {
+                transform: translate(0, 0);
+                filter: hue-rotate(360deg);
             }
         }
         
