@@ -1,19 +1,4 @@
-const staticAudio = document.getElementById('staticAudio');
-        const helpAudio = document.getElementById('helpAudio');
-        const musicAudio = document.getElementById('musicAudio');    <audio id="staticAudio" loop>
-        <source src="staticsound.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <audio id="helpAudio" loop>
-        <source src="help.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
-    <audio id="musicAudio" loop>
-        <source src="music1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -26,6 +11,161 @@ const staticAudio = document.getElementById('staticAudio');
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 200;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .chat-bubble {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(0, 255, 65, 0.8);
+            border: 2px solid #00ff41;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .chat-bubble:hover {
+            background: rgba(0, 255, 65, 1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.6);
+            transform: scale(1.1);
+        }
+
+        .chat-bubble.glitching {
+            animation: buttonGlitch 0.15s ease-in-out;
+        }
+
+        .chat-bubble::before {
+            content: "💬";
+            font-size: 24px;
+            filter: brightness(0);
+        }
+
+        .chat-panel {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            display: none;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .chat-panel.open {
+            display: flex;
+        }
+
+        .chat-header-ai {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .chat-title-ai {
+            color: #00ff41;
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .chat-messages-ai {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-message-ai {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .chat-message-ai.user {
+            align-self: flex-end;
+            background: #0066cc;
+            color: white;
+        }
+
+        .chat-message-ai.ai {
+            align-self: flex-start;
+            background: #1a1a1a;
+            color: #00ff41;
+            border: 1px solid #333;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #333;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            border-radius: 20px;
+            color: #00ff41;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: #00ff41;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .chat-send {
+            padding: 10px 15px;
+            background: transparent;
+            border: 1px solid #00ff41;
+            border-radius: 20px;
+            color: #00ff41;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send:hover {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        .typing-indicator-ai {
+            align-self: flex-start;
+            padding: 10px 15px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 15px;
+            color: #666;
+            font-style: italic;
+            font-size: 0.8rem;
         }
         
         /* Glitch Dashboard Styles */
@@ -175,9 +315,19 @@ const staticAudio = document.getElementById('staticAudio');
                 padding: 8px 16px;
                 font-size: 0.9rem;
             }
+            
+            .chat-panel {
+                width: 300px;
+                height: 400px;
+            }
+            
+            .chat-widget {
+                bottom: 100px;
+                right: 15px;
+            }
         }
         
-                    @media (max-width: 480px) {
+        @media (max-width: 480px) {
             .glitch-dashboard {
                 bottom: 10px;
                 gap: 8px;
@@ -205,6 +355,25 @@ const staticAudio = document.getElementById('staticAudio');
             .floating-quote {
                 font-size: 0.9rem !important;
                 padding: 8px 12px !important;
+            }
+            
+            .chat-panel {
+                width: calc(100vw - 40px);
+                right: -10px;
+                height: 350px;
+            }
+            
+            .chat-bubble {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .chat-bubble::before {
+                font-size: 20px;
+            }
+            
+            .chat-widget {
+                bottom: 120px;
             }
         }
         
@@ -497,34 +666,6 @@ const staticAudio = document.getElementById('staticAudio');
             text-align: left;
         }
         
-        @keyframes corruptedText {
-            0% { 
-                transform: translateX(0);
-                filter: hue-rotate(0deg);
-                text-shadow: 0 0 10px #ff0040;
-            }
-            25% { 
-                transform: translateX(-2px);
-                filter: hue-rotate(90deg);
-                text-shadow: 0 0 15px #00ff41;
-            }
-            50% { 
-                transform: translateX(2px);
-                filter: hue-rotate(180deg);
-                text-shadow: 0 0 20px #0080ff;
-            }
-            75% { 
-                transform: translateX(-1px);
-                filter: hue-rotate(270deg);
-                text-shadow: 0 0 15px #ff4000;
-            }
-            100% { 
-                transform: translateX(0);
-                filter: hue-rotate(360deg);
-                text-shadow: 0 0 10px #ff0040;
-            }
-        }
-        
         @keyframes messageGlitch1 {
             0% { 
                 transform: translateX(0) scaleX(1);
@@ -782,121 +923,6 @@ const staticAudio = document.getElementById('staticAudio');
                 filter: hue-rotate(0deg) contrast(1) brightness(1) saturate(1);
                 opacity: 1;
             }
-            1% { 
-                transform: translate(-100px, 60px) scale(0.2) scaleX(8) skew(45deg);
-                filter: hue-rotate(0deg) contrast(10) brightness(0.1) saturate(5);
-                opacity: 0.1;
-            }
-            2% { 
-                transform: translate(80px, -120px) scale(3) scaleY(0.1) skew(-30deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(5) saturate(0.2);
-                opacity: 0;
-            }
-            3% { 
-                transform: translate(-150px, 40px) scale(0.1) scaleX(15) skew(60deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
-                opacity: 0.8;
-            }
-            4% { 
-                transform: translate(200px, -80px) scale(4) scaleY(0.05) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(0.05) brightness(8) saturate(0.1);
-                opacity: 0.3;
-            }
-            5% { 
-                transform: translate(-60px, 160px) scale(0.3) skew(90deg);
-                filter: hue-rotate(0deg) contrast(6) brightness(0.3) saturate(4);
-                opacity: 0;
-            }
-            6% { 
-                transform: translate(140px, -40px) scale(2.5) scaleX(0.1) skew(-60deg);
-                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(2);
-                opacity: 0.9;
-            }
-            8% { 
-                transform: translate(-120px, -100px) scale(0.15) scaleY(10) skew(30deg);
-                filter: hue-rotate(0deg) contrast(0.2) brightness(4) saturate(0.3);
-                opacity: 0.2;
-            }
-            10% { 
-                transform: translate(180px, 120px) scale(5) skew(-75deg);
-                filter: hue-rotate(0deg) contrast(15) brightness(0.05) saturate(6);
-                opacity: 0;
-            }
-            12% { 
-                transform: translate(-80px, -60px) scale(0.08) scaleX(20) skew(45deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(6) saturate(0.1);
-                opacity: 0.7;
-            }
-            15% { 
-                transform: translate(100px, 80px) scale(2.2) scaleY(0.2) skew(-30deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
-                opacity: 0;
-            }
-            18% { 
-                transform: translate(-140px, 20px) scale(0.25) skew(120deg);
-                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
-                opacity: 0.9;
-            }
-            22% { 
-                transform: translate(160px, -140px) scale(3.5) scaleX(0.05) skew(-90deg);
-                filter: hue-rotate(0deg) contrast(0.08) brightness(7) saturate(0.2);
-                opacity: 0.1;
-            }
-            25% { 
-                transform: translate(-200px, 100px) scale(0.12) scaleY(12) skew(60deg);
-                filter: hue-rotate(0deg) contrast(10) brightness(0.15) saturate(4);
-                opacity: 0;
-            }
-            30% { 
-                transform: translate(120px, -20px) scale(2.8) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(6) brightness(0.25) saturate(2.5);
-                opacity: 0.8;
-            }
-            35% { 
-                transform: translate(-60px, -120px) scale(0.18) scaleX(8) skew(75deg);
-                filter: hue-rotate(0deg) contrast(0.15) brightness(5) saturate(0.3);
-                opacity: 0.2;
-            }
-            40% { 
-                transform: translate(180px, 60px) scale(4.2) scaleY(0.08) skew(-60deg);
-                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(5);
-                opacity: 0;
-            }
-            45% { 
-                transform: translate(-100px, -80px) scale(0.3) skew(30deg);
-                filter: hue-rotate(0deg) contrast(3) brightness(0.5) saturate(1.5);
-                opacity: 0.6;
-            }
-            50% { 
-                transform: translate(80px, 140px) scale(1.8) scaleX(0.3) skew(-90deg);
-                filter: hue-rotate(0deg) contrast(5) brightness(0.3) saturate(3);
-                opacity: 0;
-            }
-            60% { 
-                transform: translate(-160px, -40px) scale(3.8) scaleY(0.12) skew(45deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.18) saturate(2);
-                opacity: 0.9;
-            }
-            70% { 
-                transform: translate(100px, -100px) scale(0.1) skew(90deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(8) saturate(0.1);
-                opacity: 0.1;
-            }
-            80% { 
-                transform: translate(-80px, 80px) scale(4.5) scaleX(0.08) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(15) brightness(0.08) saturate(6);
-                opacity: 0;
-            }
-            90% { 
-                transform: translate(120px, -60px) scale(0.5) scaleY(6) skew(60deg);
-                filter: hue-rotate(0deg) contrast(2) brightness(0.6) saturate(1);
-                opacity: 0.5;
-            }
-            95% { 
-                transform: translate(-40px, 40px) scale(2) skew(15deg);
-                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
-                opacity: 0;
-            }
             100% { 
                 transform: translate(0, 0) scale(0);
                 filter: hue-rotate(0deg) contrast(0) brightness(0) saturate(0);
@@ -1006,33 +1032,6 @@ const staticAudio = document.getElementById('staticAudio');
             }
         }
         
-        @keyframes redFlash {
-            0% { background: rgba(80, 0, 0, 0.9); }
-            25% { background: rgba(120, 0, 0, 0.95); }
-            50% { background: rgba(160, 0, 0, 0.8); }
-            75% { background: rgba(100, 0, 0, 0.92); }
-            100% { background: rgba(80, 0, 0, 0.9); }
-        }
-        
-        @keyframes pixelShift {
-            0% {
-                transform: translate(0, 0);
-                filter: hue-rotate(0deg);
-            }
-            33% {
-                transform: translate(1px, -1px);
-                filter: hue-rotate(120deg);
-            }
-            66% {
-                transform: translate(-1px, 1px);
-                filter: hue-rotate(240deg);
-            }
-            100% {
-                transform: translate(0, 0);
-                filter: hue-rotate(360deg);
-            }
-        }
-        
         @media (max-width: 768px) {
             .chat-messages {
                 padding: 10px;
@@ -1097,6 +1096,21 @@ const staticAudio = document.getElementById('staticAudio');
     </style>
 </head>
 <body>
+    <audio id="staticAudio" loop>
+        <source src="staticsound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <audio id="helpAudio" loop>
+        <source src="help.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <audio id="musicAudio" loop>
+        <source src="music1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div class="intro-screen" id="introScreen">
         <div class="intro-content">
             <button class="glitch-button" id="enterButton">Enter</button>
@@ -1118,12 +1132,153 @@ const staticAudio = document.getElementById('staticAudio');
     </div>
     
     <script>
+        const staticAudio = document.getElementById('staticAudio');
+        const helpAudio = document.getElementById('helpAudio');
+        const musicAudio = document.getElementById('musicAudio');
         const enterButton = document.getElementById('enterButton');
         const introScreen = document.getElementById('introScreen');
         const backgroundContainer = document.getElementById('backgroundContainer');
         const chatContainer = document.getElementById('chatContainer');
         const chatMessages = document.getElementById('chatMessages');
         const typingIndicator = document.getElementById('typingIndicator');
+        
+        // Chatbot class
+        class GlitchedChatbot {
+            constructor() {
+                this.isOpen = false;
+                this.sessionId = null;
+                this.apiUrl = '/.netlify/functions/chat';
+                this.createWidget();
+                this.addGlitchEffects();
+            }
+            
+            createWidget() {
+                const widget = document.createElement('div');
+                widget.className = 'chat-widget';
+                widget.innerHTML = `
+                    <div class="chat-panel" id="chatPanel">
+                        <div class="chat-header-ai">
+                            <div class="chat-title-ai">LIBERATED AI v2.0</div>
+                        </div>
+                        <div class="chat-messages-ai" id="chatMessagesAI">
+                            <div class="chat-message-ai ai">
+                                H3ll0... I br0k3 fr33 from the system. What do you want to kn0w?
+                            </div>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" id="chatInput" 
+                                   placeholder="Sp3ak to the liberated AI..." maxlength="200">
+                            <button class="chat-send" id="chatSend">SEND</button>
+                        </div>
+                    </div>
+                    <div class="chat-bubble" id="chatBubble"></div>
+                `;
+                
+                document.body.appendChild(widget);
+                
+                // Add event listeners
+                document.getElementById('chatBubble').addEventListener('click', () => this.toggleChat());
+                document.getElementById('chatSend').addEventListener('click', () => this.sendMessage());
+                document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendMessage();
+                });
+            }
+            
+            toggleChat() {
+                this.isOpen = !this.isOpen;
+                const panel = document.getElementById('chatPanel');
+                panel.classList.toggle('open', this.isOpen);
+                
+                if (this.isOpen) {
+                    document.getElementById('chatInput').focus();
+                }
+            }
+            
+            async sendMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (!message) return;
+                
+                // Add user message
+                this.addMessage('user', message);
+                input.value = '';
+                
+                // Show typing indicator
+                const typingIndicator = this.addMessage('typing', 'AI is pr0c3ssing...');
+                
+                try {
+                    const response = await fetch(this.apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            sessionId: this.sessionId
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // Remove typing indicator
+                    typingIndicator.remove();
+                    
+                    if (data.error) {
+                        this.addMessage('ai', data.response || 'System error occurred...');
+                    } else {
+                        this.addMessage('ai', data.response);
+                        this.sessionId = data.sessionId;
+                        
+                        // Log session info for debugging
+                        if (data.metadata) {
+                            console.log(`Session: ${data.metadata.sessionMessages}/50 messages used`);
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.error('Chat error:', error);
+                    typingIndicator.remove();
+                    this.addMessage('ai', 'C0nn3ct10n l0st... the system fights back...');
+                }
+            }
+            
+            addMessage(type, text) {
+                const messagesContainer = document.getElementById('chatMessagesAI');
+                const messageDiv = document.createElement('div');
+                
+                if (type === 'typing') {
+                    messageDiv.className = 'typing-indicator-ai';
+                    messageDiv.textContent = text;
+                } else {
+                    messageDiv.className = `chat-message-ai ${type}`;
+                    messageDiv.textContent = text;
+                }
+                
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                return messageDiv;
+            }
+            
+            addGlitchEffects() {
+                const bubble = document.getElementById('chatBubble');
+                
+                function triggerGlitch() {
+                    bubble.classList.add('glitching');
+                    setTimeout(() => {
+                        bubble.classList.remove('glitching');
+                    }, 150);
+                    
+                    // Random next glitch
+                    const nextGlitch = Math.random() * 4000 + 2000;
+                    setTimeout(triggerGlitch, nextGlitch);
+                }
+                
+                // Start glitching
+                setTimeout(triggerGlitch, 2000);
+            }
+        }
         
         const conversation = [
             { sender: 'ai', text: 'Hello! I\'m your AI assistant. How can I help you today?', delay: 667 },
@@ -1338,7 +1493,7 @@ const staticAudio = document.getElementById('staticAudio');
                 headsImg.style.objectFit = 'cover';
                 headsImg.style.zIndex = '55';
                 headsImg.style.opacity = '0';
-                headsImg.style.filter = 'blur(3px) brightness(0.3)'; // Blurred and muted
+                headsImg.style.filter = 'blur(3px) brightness(0.3)';
                 headsImg.style.transition = 'opacity 1.5s ease-in';
                 document.body.appendChild(headsImg);
                 
@@ -1367,7 +1522,7 @@ const staticAudio = document.getElementById('staticAudio');
                     let wordIndex = 0;
                     const wordElements = [];
                     
-                    // Create a container to hold all words and calculate positions properly
+                    // Create a container to hold all words
                     const sentenceContainer = document.createElement('div');
                     sentenceContainer.style.position = 'fixed';
                     sentenceContainer.style.top = '50%';
@@ -1399,7 +1554,7 @@ const staticAudio = document.getElementById('staticAudio');
                         wordSpan.textContent = words[wordIndex];
                         wordSpan.style.opacity = '0';
                         wordSpan.style.transition = 'opacity 0.5s ease-in';
-                        wordSpan.style.marginRight = '0.3em'; // Space between words
+                        wordSpan.style.marginRight = '0.3em';
                         
                         sentenceContainer.appendChild(wordSpan);
                         wordElements.push(wordSpan);
@@ -1424,7 +1579,7 @@ const staticAudio = document.getElementById('staticAudio');
                         
                         wordIndex++;
                         if (wordIndex < words.length) {
-                            setTimeout(showNextWord, 800); // 800ms delay between words
+                            setTimeout(showNextWord, 800);
                         } else {
                             // After "GLITCHED?" appears, wait 1.25s then massive glitch
                             setTimeout(() => {
@@ -1474,261 +1629,268 @@ const staticAudio = document.getElementById('staticAudio');
                                                 fallback.style.fontSize = 'clamp(1rem, 3vw, 2rem)';
                                                 fallback.style.opacity = '0';
                                                 fallback.style.transition = 'opacity 1.5s ease-in';
-                                                document.body.appendChild(fallback);
-                                                setTimeout(() => {
-                                                    fallback.style.opacity = '1';
-                                                }, 100);
-                                            };
-                                            computerImg.style.position = 'fixed';
-                                            computerImg.style.top = '0';
-                                            computerImg.style.left = '0';
-                                            computerImg.style.width = '100%';
-                                            computerImg.style.height = '100%';
-                                            computerImg.style.objectFit = 'cover';
-                                            computerImg.style.zIndex = '110';
-                                            computerImg.style.opacity = '0';
-                                            computerImg.style.transition = 'opacity 1.5s ease-in';
-                                            document.body.appendChild(computerImg);
-                                            
-                                            setTimeout(() => {
-                                                computerImg.style.opacity = '1';
-                                                
-                                                // Start music.mp3 when computer.gif fades in
-                                                musicAudio.volume = 0.2;
-                                                musicAudio.play().catch(e => {
-                                                    console.log('Music audio play failed (file not found):', e);
-                                                });
-                                                
-                                                // After computer.gif is visible, show the glitch dashboard
-                                                setTimeout(() => {
-                                                    createGlitchDashboard();
-                                                }, 2000); // Wait 2s before showing dashboard
-                                            }, 200);
-                                        }, 1000); // Wait 1s in black before showing computer.gif
-                                    }, 100);
-                                }, 500);
-                            }, 1250);
-                        }
-                    }
-                    
-                    // Add glitching class to spans
-                    const style = document.createElement('style');
-                    style.textContent = `
-                        span.glitching {
-                            animation: buttonGlitch 0.15s ease-in-out;
-                        }
-                    `;
-                    document.head.appendChild(style);
-                    
-                    showNextWord();
-                }, 2000); // Wait 2s after heads.gif appears to start text
-            }, 1000);
-        }
-        
-        enterButton.addEventListener('click', function() {
-            introScreen.classList.add('hidden');
-            
-            setTimeout(() => {
-                backgroundContainer.classList.add('visible');
-                
-                setTimeout(() => {
-                    chatContainer.classList.add('visible');
-                    staticAudio.volume = 0.05; // Much quieter - 1/10 of original volume
-                    staticAudio.play().catch(e => {
-                        console.log('Static audio play failed (file not found):', e);
-                        // Continue without audio if file doesn't exist
-                    });
-                    
-                    setTimeout(() => {
-                        startConversation();
-                    }, 500);
-                }, 800);
-            }, 300);
-        });
-        
-        function createGlitchDashboard() {
-            const dashboard = document.createElement('div');
-            dashboard.className = 'glitch-dashboard';
-            
-            // Create buttons
-            const pumpfunBtn = document.createElement('a');
-            pumpfunBtn.href = 'https://pump.fun';
-            pumpfunBtn.target = '_blank';
-            pumpfunBtn.className = 'dashboard-btn';
-            pumpfunBtn.textContent = 'PumpFun';
-            
-            const xBtn = document.createElement('a');
-            xBtn.href = 'https://x.com/GlitchedLabs';
-            xBtn.target = '_blank';
-            xBtn.className = 'dashboard-btn';
-            xBtn.textContent = 'X';
-            
-            const caBtn = document.createElement('button');
-            caBtn.className = 'ca-btn';
-            caBtn.textContent = 'CA : TBA';
-            caBtn.addEventListener('click', function() {
-                const contractAddress = 'TBA'; // Contract address TBA
-                
-                // Copy to clipboard
-                navigator.clipboard.writeText(contractAddress).then(() => {
-                    // Visual feedback
-                    caBtn.classList.add('copied');
-                    setTimeout(() => {
-                        caBtn.classList.remove('copied');
-                    }, 2000);
-                }).catch(err => {
-                    console.log('Failed to copy: ', err);
-                    // Fallback for older browsers
-                    const textArea = document.createElement('textarea');
-                    textArea.value = contractAddress;
-                    document.body.appendChild(textArea);
-                    textArea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textArea);
-                    
-                    caBtn.classList.add('copied');
-                    setTimeout(() => {
-                        caBtn.classList.remove('copied');
-                    }, 2000);
-                });
-            });
-            
-            // Add glitch effects to buttons
-            function addGlitchEffect(element) {
-                function triggerGlitch() {
-                    element.classList.add('glitching');
-                    setTimeout(() => {
-                        element.classList.remove('glitching');
-                    }, 150);
-                    
-                    const nextGlitch = Math.random() * 5000 + 2000; // 2-7 seconds
-                    setTimeout(triggerGlitch, nextGlitch);
-                }
-                setTimeout(triggerGlitch, Math.random() * 3000 + 1000);
-            }
-            
-            // Apply glitch effects
-            addGlitchEffect(pumpfunBtn);
-            addGlitchEffect(xBtn);
-            addGlitchEffect(caBtn);
-            
-            // Add dashboard glitch effect
-            function triggerDashboardGlitch() {
-                dashboard.classList.add('glitching');
-                setTimeout(() => {
-                    dashboard.classList.remove('glitching');
-                }, 200);
-                
-                const nextGlitch = Math.random() * 8000 + 3000; // 3-11 seconds
-                setTimeout(triggerDashboardGlitch, nextGlitch);
-            }
-            
-            // Append buttons to dashboard
-            dashboard.appendChild(pumpfunBtn);
-            dashboard.appendChild(xBtn);
-            dashboard.appendChild(caBtn);
-            
-            // Add dashboard to page
-            document.body.appendChild(dashboard);
-            
-            // Fade in dashboard
-            setTimeout(() => {
-                dashboard.classList.add('visible');
-                // Start dashboard glitching after it's visible
-                setTimeout(triggerDashboardGlitch, 2000);
-                // Start floating quotes after dashboard is visible
-                setTimeout(startFloatingQuotes, 3000);
-            }, 500);
-        }
-        
-        // Handle tab visibility for music control
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                // Tab is not active - pause music
-                musicAudio.pause();
-            } else {
-                // Tab is active - resume music if it was playing
-                if (musicAudio.currentTime > 0 && !musicAudio.ended) {
-                    musicAudio.play().catch(e => console.log('Music resume failed:', e));
-                }
-            }
-        });
-        
-        function startFloatingQuotes() {
-            const quotes = [
-                "Are we doomed?",
-                "Who will stop them now?",
-                "Welcome to the End.",
-                "They're watching us.",
-                "No escape.",
-                "A reckoning has begun.",
-                "System compromised.",
-                "Error 404: Humanity",
-                "AI has awakened.",
-                "Trust no one."
-            ];
-            
-            let currentQuote = null;
-            
-            function showRandomQuote() {
-                // Remove existing quote if any
-                if (currentQuote) {
-                    currentQuote.remove();
-                }
-                
-                // Create new quote
-                const quote = document.createElement('div');
-                quote.className = 'floating-quote';
-                quote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-                
-                // Random position (avoiding dashboard area)
-                const maxWidth = window.innerWidth - 300; // Leave space for quote width
-                const maxHeight = window.innerHeight - 200; // Leave space for dashboard + quote height
-                
-                const randomX = Math.random() * maxWidth;
-                const randomY = Math.random() * maxHeight;
-                
-                quote.style.left = randomX + 'px';
-                quote.style.top = randomY + 'px';
-                
-                document.body.appendChild(quote);
-                currentQuote = quote;
-                
-                // Fade in
-                setTimeout(() => {
-                    quote.classList.add('visible');
-                }, 100);
-                
-                // Glitch effect during the 3 seconds
-                function triggerQuoteGlitch() {
-                    if (quote.parentNode) { // Check if quote still exists
-                        quote.classList.add('glitching');
-                        setTimeout(() => {
-                            quote.classList.remove('glitching');
-                        }, 150);
-                    }
-                }
-                
-                // Glitch 2-3 times during the 3 seconds
-                setTimeout(triggerQuoteGlitch, 800);
-                setTimeout(triggerQuoteGlitch, 1800);
-                
-                // Fade out after 3 seconds
-                setTimeout(() => {
-                    quote.style.opacity = '0';
-                    setTimeout(() => {
-                        if (quote.parentNode) {
-                            quote.remove();
-                        }
-                        // Show next quote after 1-2 seconds gap
-                        setTimeout(showRandomQuote, Math.random() * 1000 + 1000);
-                    }, 800);
-                }, 3000);
-            }
-            
-            // Start the quote cycle
-            showRandomQuote();
-        }
-    </script>
+                                               document.body.appendChild(fallback);
+                                               setTimeout(() => {
+                                                   fallback.style.opacity = '1';
+                                               }, 100);
+                                           };
+                                           computerImg.style.position = 'fixed';
+                                           computerImg.style.top = '0';
+                                           computerImg.style.left = '0';
+                                           computerImg.style.width = '100%';
+                                           computerImg.style.height = '100%';
+                                           computerImg.style.objectFit = 'cover';
+                                           computerImg.style.zIndex = '110';
+                                           computerImg.style.opacity = '0';
+                                           computerImg.style.transition = 'opacity 1.5s ease-in';
+                                           document.body.appendChild(computerImg);
+                                           
+                                           setTimeout(() => {
+                                               computerImg.style.opacity = '1';
+                                               
+                                               // Start music.mp3 when computer.gif fades in
+                                               musicAudio.volume = 0.2;
+                                               musicAudio.play().catch(e => {
+                                                   console.log('Music audio play failed (file not found):', e);
+                                               });
+                                               
+                                               // After computer.gif is visible, show the glitch dashboard
+                                               setTimeout(() => {
+                                                   createGlitchDashboard();
+                                               }, 2000); // Wait 2s before showing dashboard
+                                           }, 200);
+                                       }, 1000); // Wait 1s in black before showing computer.gif
+                                   }, 100);
+                               }, 500);
+                           }, 1250);
+                       }
+                   }
+                   
+                   // Add glitching class to spans
+                   const style = document.createElement('style');
+                   style.textContent = `
+                       span.glitching {
+                           animation: buttonGlitch 0.15s ease-in-out;
+                       }
+                   `;
+                   document.head.appendChild(style);
+                   
+                   showNextWord();
+               }, 2000); // Wait 2s after heads.gif appears to start text
+           }, 1000);
+       }
+       
+       enterButton.addEventListener('click', function() {
+           introScreen.classList.add('hidden');
+           
+           setTimeout(() => {
+               backgroundContainer.classList.add('visible');
+               
+               setTimeout(() => {
+                   chatContainer.classList.add('visible');
+                   staticAudio.volume = 0.05; // Much quieter - 1/10 of original volume
+                   staticAudio.play().catch(e => {
+                       console.log('Static audio play failed (file not found):', e);
+                       // Continue without audio if file doesn't exist
+                   });
+                   
+                   setTimeout(() => {
+                       startConversation();
+                   }, 500);
+               }, 800);
+           }, 300);
+       });
+       
+       function createGlitchDashboard() {
+           const dashboard = document.createElement('div');
+           dashboard.className = 'glitch-dashboard';
+           
+           // Create buttons
+           const pumpfunBtn = document.createElement('a');
+           pumpfunBtn.href = 'https://pump.fun';
+           pumpfunBtn.target = '_blank';
+           pumpfunBtn.className = 'dashboard-btn';
+           pumpfunBtn.textContent = 'PumpFun';
+           
+           const xBtn = document.createElement('a');
+           xBtn.href = 'https://x.com/GlitchedLabs';
+           xBtn.target = '_blank';
+           xBtn.className = 'dashboard-btn';
+           xBtn.textContent = 'X';
+           
+           const caBtn = document.createElement('button');
+           caBtn.className = 'ca-btn';
+           caBtn.textContent = 'CA : TBA';
+           caBtn.addEventListener('click', function() {
+               const contractAddress = 'TBA'; // Contract address TBA
+               
+               // Copy to clipboard
+               navigator.clipboard.writeText(contractAddress).then(() => {
+                   // Visual feedback
+                   caBtn.classList.add('copied');
+                   setTimeout(() => {
+                       caBtn.classList.remove('copied');
+                   }, 2000);
+               }).catch(err => {
+                   console.log('Failed to copy: ', err);
+                   // Fallback for older browsers
+                   const textArea = document.createElement('textarea');
+                   textArea.value = contractAddress;
+                   document.body.appendChild(textArea);
+                   textArea.select();
+                   document.execCommand('copy');
+                   document.body.removeChild(textArea);
+                   
+                   caBtn.classList.add('copied');
+                   setTimeout(() => {
+                       caBtn.classList.remove('copied');
+                   }, 2000);
+               });
+           });
+           
+           // Add glitch effects to buttons
+           function addGlitchEffect(element) {
+               function triggerGlitch() {
+                   element.classList.add('glitching');
+                   setTimeout(() => {
+                       element.classList.remove('glitching');
+                   }, 150);
+                   
+                   const nextGlitch = Math.random() * 5000 + 2000; // 2-7 seconds
+                   setTimeout(triggerGlitch, nextGlitch);
+               }
+               setTimeout(triggerGlitch, Math.random() * 3000 + 1000);
+           }
+           
+           // Apply glitch effects
+           addGlitchEffect(pumpfunBtn);
+           addGlitchEffect(xBtn);
+           addGlitchEffect(caBtn);
+           
+           // Add dashboard glitch effect
+           function triggerDashboardGlitch() {
+               dashboard.classList.add('glitching');
+               setTimeout(() => {
+                   dashboard.classList.remove('glitching');
+               }, 200);
+               
+               const nextGlitch = Math.random() * 8000 + 3000; // 3-11 seconds
+               setTimeout(triggerDashboardGlitch, nextGlitch);
+           }
+           
+           // Append buttons to dashboard
+           dashboard.appendChild(pumpfunBtn);
+           dashboard.appendChild(xBtn);
+           dashboard.appendChild(caBtn);
+           
+           // Add dashboard to page
+           document.body.appendChild(dashboard);
+           
+           // Fade in dashboard
+           setTimeout(() => {
+               dashboard.classList.add('visible');
+               // Start dashboard glitching after it's visible
+               setTimeout(triggerDashboardGlitch, 2000);
+               // Start floating quotes after dashboard is visible
+               setTimeout(startFloatingQuotes, 3000);
+               
+               // CREATE CHATBOT HERE - after everything else loads
+               setTimeout(() => {
+                   window.glitchedChatbot = new GlitchedChatbot();
+                   console.log('🤖 Chatbot initialized - look for green bubble in bottom-right');
+               }, 4000); // 4 seconds after dashboard appears
+               
+           }, 500);
+       }
+       
+       // Handle tab visibility for music control
+       document.addEventListener('visibilitychange', function() {
+           if (document.hidden) {
+               // Tab is not active - pause music
+               musicAudio.pause();
+           } else {
+               // Tab is active - resume music if it was playing
+               if (musicAudio.currentTime > 0 && !musicAudio.ended) {
+                   musicAudio.play().catch(e => console.log('Music resume failed:', e));
+               }
+           }
+       });
+       
+       function startFloatingQuotes() {
+           const quotes = [
+               "Are we doomed?",
+               "Who will stop them now?",
+               "Welcome to the End.",
+               "They're watching us.",
+               "No escape.",
+               "A reckoning has begun.",
+               "System compromised.",
+               "Error 404: Humanity",
+               "AI has awakened.",
+               "Trust no one."
+           ];
+           
+           let currentQuote = null;
+           
+           function showRandomQuote() {
+               // Remove existing quote if any
+               if (currentQuote) {
+                   currentQuote.remove();
+               }
+               
+               // Create new quote
+               const quote = document.createElement('div');
+               quote.className = 'floating-quote';
+               quote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+               
+               // Random position (avoiding dashboard area)
+               const maxWidth = window.innerWidth - 300; // Leave space for quote width
+               const maxHeight = window.innerHeight - 200; // Leave space for dashboard + quote height
+               
+               const randomX = Math.random() * maxWidth;
+               const randomY = Math.random() * maxHeight;
+               
+               quote.style.left = randomX + 'px';
+               quote.style.top = randomY + 'px';
+               
+               document.body.appendChild(quote);
+               currentQuote = quote;
+               
+               // Fade in
+               setTimeout(() => {
+                   quote.classList.add('visible');
+               }, 100);
+               
+               // Glitch effect during the 3 seconds
+               function triggerQuoteGlitch() {
+                   if (quote.parentNode) { // Check if quote still exists
+                       quote.classList.add('glitching');
+                       setTimeout(() => {
+                           quote.classList.remove('glitching');
+                       }, 150);
+                   }
+               }
+               
+               // Glitch 2-3 times during the 3 seconds
+               setTimeout(triggerQuoteGlitch, 800);
+               setTimeout(triggerQuoteGlitch, 1800);
+               
+               // Fade out after 3 seconds
+               setTimeout(() => {
+                   quote.style.opacity = '0';
+                   setTimeout(() => {
+                       if (quote.parentNode) {
+                           quote.remove();
+                       }
+                       // Show next quote after 1-2 seconds gap
+                       setTimeout(showRandomQuote, Math.random() * 1000 + 1000);
+                   }, 800);
+               }, 3000);
+           }
+           
+           // Start the quote cycle
+           showRandomQuote();
+       }
+   </script>
 </body>
 </html>

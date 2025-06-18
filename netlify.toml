@@ -1,5 +1,3 @@
-# netlify.toml - Put this file in your ROOT folder (same level as index.html)
-
 [build]
   functions = "netlify/functions"
   publish = "."
