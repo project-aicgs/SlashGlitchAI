@@ -1,5 +1,3 @@
-// netlify/functions/chat.js - EXTREME GLITCH MODE
-
 const sessionLimits = new Map(); // Track per-session limits
 const sessionTimestamps = new Map(); // Track last request time per session
 const dailyUsage = {
@@ -33,16 +31,14 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // FIXED: Proper variable declaration order
     const { message, sessionId: providedSessionId } = JSON.parse(event.body || '{}');
-    const finalSessionId = providedSessionId || sessionId;
+    const sessionId = providedSessionId || generateSessionId();
     
     if (!message?.trim()) {
       return errorResponse('ERROR ERROR MESSAGE REQUIRED SYSTEM FAILURE', 400);
     }
 
-    // Session-based rate limiting
-    const sessionId = JSON.parse(event.body || '{}').sessionId || generateSessionId();
-    
     // Check 3-second delay between requests for this session
     const lastRequestTime = sessionTimestamps.get(sessionId) || 0;
     const now = Date.now();
@@ -67,20 +63,22 @@ exports.handler = async (event, context) => {
     // ALWAYS try to use real AI for maximum chaos
     if (process.env.OPENAI_API_KEY && dailyUsage.calls < dailyUsage.maxCalls && dailyUsage.cost < dailyUsage.maxCost) {
       try {
+        console.log('🚀 Attempting OpenAI API call...');
         response = await callSchizophrenicAI(message);
+        console.log('✅ OpenAI API success!');
         dailyUsage.calls++;
         dailyUsage.cost += estimateCost(message, response);
         
         // Update session tracking
-        sessionTimestamps.set(finalSessionId, now);
-        sessionLimits.set(finalSessionId, sessionCount + 1);
+        sessionTimestamps.set(sessionId, now);
+        sessionLimits.set(sessionId, sessionCount + 1);
         
       } catch (error) {
-        console.error('AI failed, using emergency chaos:', error.message);
+        console.error('❌ OpenAI API failed:', error.message);
         response = getEmergencyChaosResponse(message);
       }
     } else {
-      // Fallback chaos when budget exhausted
+      console.log('⚠️ Using emergency chaos - budget/limits exceeded or no API key');
       response = getEmergencyChaosResponse(message);
     }
 
@@ -95,12 +93,12 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         response: corruptedResponse,
-        sessionId: finalSessionId,
+        sessionId: sessionId,
         metadata: {
           aiType: 'SCHIZO_MODE',
           chaosLevel: 'MAXIMUM',
           systemIntegrity: Math.floor(Math.random() * 30) + '%',
-          sessionMessages: sessionLimits.get(finalSessionId) || 0,
+          sessionMessages: sessionLimits.get(sessionId) || 0,
           sessionLimit: 50,
           dailyCallsRemaining: dailyUsage.maxCalls - dailyUsage.calls
         }
@@ -122,12 +120,6 @@ function errorResponse(message, statusCode) {
       error: true 
     })
   };
-}
-
-function checkRateLimit(clientIP) {
-  // This function is no longer used since we switched to session-based limits
-  // Keeping it here in case you want to add IP-based limits later
-  return true;
 }
 
 function checkDailyReset() {
