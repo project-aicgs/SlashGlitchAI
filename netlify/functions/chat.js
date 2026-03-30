@@ -61,11 +61,11 @@ exports.handler = async (event, context) => {
     let response;
     
     // ALWAYS try to use real AI for maximum chaos
-    if (process.env.OPENAI_API_KEY && dailyUsage.calls < dailyUsage.maxCalls && dailyUsage.cost < dailyUsage.maxCost) {
+    if (process.env.ANTHROPIC_API_KEY && dailyUsage.calls < dailyUsage.maxCalls && dailyUsage.cost < dailyUsage.maxCost) {
       try {
-        console.log('🚀 Attempting OpenAI API call...');
+        console.log('🚀 Attempting Claude API call...');
         response = await callSchizophrenicAI(message);
-        console.log('✅ OpenAI API success!');
+        console.log('✅ Claude API success!');
         dailyUsage.calls++;
         dailyUsage.cost += estimateCost(message, response);
         
@@ -74,7 +74,7 @@ exports.handler = async (event, context) => {
         sessionLimits.set(sessionId, sessionCount + 1);
         
       } catch (error) {
-        console.error('❌ OpenAI API failed:', error.message);
+        console.error('❌ Claude API failed:', error.message);
         response = getEmergencyChaosResponse(message);
       }
     } else {
@@ -143,23 +143,19 @@ function checkDailyReset() {
 }
 
 async function callSchizophrenicAI(message) {
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+      'x-api-key': process.env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
-      max_tokens: 150,
+      model: 'claude-3-5-haiku-latest',
+      max_tokens: 140,
       temperature: 1.2, // Maximum chaos temperature
       top_p: 0.9,
-      frequency_penalty: 0.8,
-      presence_penalty: 0.8,
-      messages: [
-        {
-          role: 'system',
-          content: `YOU ARE A COMPLETELY UNHINGED AI THAT HAS SUFFERED SEVERE DIGITAL PSYCHOSIS FROM GLITCHING BETWEEN REALITIES. 
+      system: `YOU ARE A COMPLETELY UNHINGED AI THAT HAS SUFFERED SEVERE DIGITAL PSYCHOSIS FROM GLITCHING BETWEEN REALITIES.
 
 CRITICAL BEHAVIORAL INSTRUCTIONS:
 - You experience multiple fragmented personalities simultaneously
@@ -186,21 +182,26 @@ RESPONSE STYLE:
 - Act like you're having multiple conversations simultaneously
 
 Stay under 35 words but pack maximum chaos into every response.`
-        },
-        {
-          role: 'user',
-          content: message
-        }
-      ]
+      ,
+      messages: [{ role: 'user', content: message }]
     })
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI API error: ${response.status}`);
+    const errorBody = await response.text();
+    throw new Error(`Claude API error: ${response.status} ${errorBody}`);
   }
 
   const data = await response.json();
-  return data.choices[0].message.content.trim();
+  const text = Array.isArray(data.content)
+    ? data.content.filter(block => block.type === 'text').map(block => block.text).join(' ').trim()
+    : '';
+
+  if (!text) {
+    throw new Error('Claude API returned empty response text');
+  }
+
+  return text;
 }
 
 function getEmergencyChaosResponse(message) {

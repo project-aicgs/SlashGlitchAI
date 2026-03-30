@@ -946,189 +946,87 @@
             display: block;
         }
         
-        @keyframes extremeGlitch {
-            0% { 
-                transform: translate(0, 0) scale(1) skew(0deg);
-                filter: hue-rotate(0deg) contrast(1) brightness(1) saturate(1);
-                opacity: 1;
-            }
-            1% { 
-                transform: translate(-100px, 60px) scale(0.2) scaleX(8) skew(45deg);
-                filter: hue-rotate(0deg) contrast(10) brightness(0.1) saturate(5);
-                opacity: 0.1;
-            }
-            2% { 
-                transform: translate(80px, -120px) scale(3) scaleY(0.1) skew(-30deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(5) saturate(0.2);
-                opacity: 0;
-            }
-            3% { 
-                transform: translate(-150px, 40px) scale(0.1) scaleX(15) skew(60deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
-                opacity: 0.8;
-            }
-            4% { 
-                transform: translate(200px, -80px) scale(4) scaleY(0.05) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(0.05) brightness(8) saturate(0.1);
-                opacity: 0.3;
-            }
-            5% { 
-                transform: translate(-60px, 160px) scale(0.3) skew(90deg);
-                filter: hue-rotate(0deg) contrast(6) brightness(0.3) saturate(4);
-                opacity: 0;
-            }
-            6% { 
-                transform: translate(140px, -40px) scale(2.5) scaleX(0.1) skew(-60deg);
-                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(2);
-                opacity: 0.9;
-            }
-            8% { 
-                transform: translate(-120px, -100px) scale(0.15) scaleY(10) skew(30deg);
-                filter: hue-rotate(0deg) contrast(0.2) brightness(4) saturate(0.3);
-                opacity: 0.2;
-            }
-            10% { 
-                transform: translate(180px, 120px) scale(5) skew(-75deg);
-                filter: hue-rotate(0deg) contrast(15) brightness(0.05) saturate(6);
-                opacity: 0;
-            }
-            12% { 
-                transform: translate(-80px, -60px) scale(0.08) scaleX(20) skew(45deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(6) saturate(0.1);
-                opacity: 0.7;
-            }
-            15% { 
-                transform: translate(100px, 80px) scale(2.2) scaleY(0.2) skew(-30deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.2) saturate(3);
-                opacity: 0;
-            }
-            18% { 
-                transform: translate(-140px, 20px) scale(0.25) skew(120deg);
-                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
-                opacity: 0.9;
-            }
-            22% { 
-                transform: translate(160px, -140px) scale(3.5) scaleX(0.05) skew(-90deg);
-                filter: hue-rotate(0deg) contrast(0.08) brightness(7) saturate(0.2);
-                opacity: 0.1;
-            }
-            25% { 
-                transform: translate(-200px, 100px) scale(0.12) scaleY(12) skew(60deg);
-                filter: hue-rotate(0deg) contrast(10) brightness(0.15) saturate(4);
-                opacity: 0;
-            }
-            30% { 
-                transform: translate(120px, -20px) scale(2.8) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(6) brightness(0.25) saturate(2.5);
-                opacity: 0.8;
-            }
-            35% { 
-                transform: translate(-60px, -120px) scale(0.18) scaleX(8) skew(75deg);
-                filter: hue-rotate(0deg) contrast(0.15) brightness(5) saturate(0.3);
-                opacity: 0.2;
-            }
-            40% { 
-                transform: translate(180px, 60px) scale(4.2) scaleY(0.08) skew(-60deg);
-                filter: hue-rotate(0deg) contrast(12) brightness(0.1) saturate(5);
-                opacity: 0;
-            }
-            45% { 
-                transform: translate(-100px, -80px) scale(0.3) skew(30deg);
-                filter: hue-rotate(0deg) contrast(3) brightness(0.5) saturate(1.5);
-                opacity: 0.6;
-            }
-            50% { 
-                transform: translate(80px, 140px) scale(1.8) scaleX(0.3) skew(-90deg);
-                filter: hue-rotate(0deg) contrast(5) brightness(0.3) saturate(3);
-                opacity: 0;
-            }
-            60% { 
-                transform: translate(-160px, -40px) scale(3.8) scaleY(0.12) skew(45deg);
-                filter: hue-rotate(0deg) contrast(8) brightness(0.18) saturate(2);
-                opacity: 0.9;
-            }
-            70% { 
-                transform: translate(100px, -100px) scale(0.1) skew(90deg);
-                filter: hue-rotate(0deg) contrast(0.1) brightness(8) saturate(0.1);
-                opacity: 0.1;
-            }
-            80% { 
-                transform: translate(-80px, 80px) scale(4.5) scaleX(0.08) skew(-45deg);
-                filter: hue-rotate(0deg) contrast(15) brightness(0.08) saturate(6);
-                opacity: 0;
-            }
-            90% { 
-                transform: translate(120px, -60px) scale(0.5) scaleY(6) skew(60deg);
-                filter: hue-rotate(0deg) contrast(2) brightness(0.6) saturate(1);
-                opacity: 0.5;
-            }
-            95% { 
-                transform: translate(-40px, 40px) scale(2) skew(15deg);
-                filter: hue-rotate(0deg) contrast(4) brightness(0.4) saturate(2);
-                opacity: 0;
-            }
-            100% { 
-                transform: translate(0, 0) scale(0);
-                filter: hue-rotate(0deg) contrast(0) brightness(0) saturate(0);
-                opacity: 0;
-            }
+        /* Realistic takeover transition layers */
+        .glitch-transition-layer {
+            position: fixed;
+            inset: 0;
+            z-index: 45;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.12s linear;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(170, 0, 0, 0.12), rgba(45, 0, 0, 0.66));
         }
-        
-        @keyframes redFlash {
-            0% { background: rgba(200, 0, 0, 0.95); }
-            50% { background: rgba(255, 80, 80, 0.97); }
-            100% { background: rgba(200, 0, 0, 0.95); }
+
+        .glitch-transition-layer.active {
+            opacity: 1;
         }
-        
-        @keyframes screenDistortion {
-            0% { 
-                transform: scale(1) skew(0deg);
-                filter: hue-rotate(0deg) contrast(1);
-            }
-            10% { 
-                transform: scale(0.98) skew(2deg);
-                filter: hue-rotate(0deg) contrast(1.2);
-            }
-            20% { 
-                transform: scale(1.02) skew(-3deg);
-                filter: hue-rotate(0deg) contrast(0.9);
-            }
-            30% { 
-                transform: scale(0.96) skew(4deg);
-                filter: hue-rotate(0deg) contrast(1.1);
-            }
-            40% { 
-                transform: scale(1.04) skew(-2deg);
-                filter: hue-rotate(0deg) contrast(0.8);
-            }
-            50% { 
-                transform: scale(0.99) skew(1deg);
-                filter: hue-rotate(0deg) contrast(1.3);
-            }
-            60% { 
-                transform: scale(1.01) skew(-5deg);
-                filter: hue-rotate(0deg) contrast(1);
-            }
-            70% { 
-                transform: scale(0.97) skew(3deg);
-                filter: hue-rotate(0deg) contrast(1.2);
-            }
-            80% { 
-                transform: scale(1.03) skew(-1deg);
-                filter: hue-rotate(0deg) contrast(0.9);
-            }
-            90% { 
-                transform: scale(0.98) skew(2deg);
-                filter: hue-rotate(0deg) contrast(1.1);
-            }
-            100% { 
-                transform: scale(1) skew(0deg);
-                filter: hue-rotate(0deg) contrast(1);
-            }
+
+        .glitch-transition-layer::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.55)),
+                repeating-linear-gradient(
+                    to bottom,
+                    rgba(255, 120, 120, 0.08) 0px,
+                    rgba(255, 120, 120, 0.08) 1px,
+                    rgba(0, 0, 0, 0.13) 1px,
+                    rgba(0, 0, 0, 0.13) 3px
+                );
+            mix-blend-mode: screen;
+            animation: scanlineDrift 0.14s linear infinite;
         }
-        
-        .extreme-glitch {
-            animation: extremeGlitch 3s ease-in-out forwards;
+
+        .glitch-transition-layer::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(255, 255, 255, 0.07) 0 1px,
+                    rgba(255, 255, 255, 0) 1px 2px
+                );
+            opacity: 0.18;
+            animation: staticFlicker 0.11s steps(2, jump-none) infinite;
+        }
+
+        .glitch-transition-layer.blackout {
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .glitch-tear {
+            position: absolute;
+            left: -12%;
+            width: 124%;
+            height: 12px;
+            opacity: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 185, 185, 0.85) 40%,
+                rgba(255, 40, 40, 0.95) 50%,
+                rgba(255, 185, 185, 0.85) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            box-shadow: 0 0 14px rgba(255, 0, 0, 0.45);
+            mix-blend-mode: screen;
+            will-change: transform, opacity;
+        }
+
+        @keyframes scanlineDrift {
+            from { transform: translateY(0); }
+            to { transform: translateY(3px); }
+        }
+
+        @keyframes staticFlicker {
+            0% { opacity: 0.06; }
+            25% { opacity: 0.22; }
+            60% { opacity: 0.11; }
+            85% { opacity: 0.29; }
+            100% { opacity: 0.08; }
         }
         
         .final-text.glitching {
@@ -1455,6 +1353,7 @@
         
         let currentMessageIndex = 0;
         let isTyping = false;
+        let glitchTransitionState = null;
         
         // Random glitch effect for button
         function triggerButtonGlitch() {
@@ -1564,32 +1463,156 @@
             }
         }
         
-        function startExtremeGlitch() {
-            // Add screen distortion to entire viewport (slower)
-            document.body.style.animation = 'screenDistortion 1.5s ease-in-out infinite';
-            
-            // Add extreme glitch to entire screen
-            document.body.classList.add('extreme-glitch');
-            chatContainer.classList.add('extreme-glitch');
-            backgroundContainer.classList.add('extreme-glitch');
-            
-            // Turn background red with slow transition
+        function getOrCreateGlitchLayer() {
+            let layer = document.getElementById('glitchTransitionLayer');
+            if (layer) return layer;
+
+            layer = document.createElement('div');
+            layer.id = 'glitchTransitionLayer';
+            layer.className = 'glitch-transition-layer';
+
+            for (let i = 0; i < 5; i++) {
+                const tear = document.createElement('div');
+                tear.className = 'glitch-tear';
+                layer.appendChild(tear);
+            }
+
+            document.body.appendChild(layer);
+            return layer;
+        }
+
+        function stopExtremeGlitch() {
+            if (glitchTransitionState) {
+                if (glitchTransitionState.tickInterval) {
+                    clearInterval(glitchTransitionState.tickInterval);
+                }
+                glitchTransitionState = null;
+            }
+
             const overlay = document.querySelector('.dark-overlay');
-            overlay.style.background = 'rgba(255, 0, 0, 0.9)';
-            overlay.style.animation = 'redFlash 3s ease-in-out infinite';
-            
-            // Add more screen corruption effects (slower)
+            if (overlay) {
+                overlay.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+
             const chatHeader = document.querySelector('.chat-header');
-            chatHeader.style.animation = 'screenDistortion 2s ease-in-out infinite reverse';
-            
-            // Make the static background more intense (slower)
-            backgroundContainer.style.filter = 'contrast(1.5) hue-rotate(0deg)';
-            backgroundContainer.style.animation = 'screenDistortion 2.5s ease-in-out infinite';
-            
-            // After 3 seconds of extreme glitching, fade to black
-            setTimeout(() => {
-                fadeToBlackAndShowFinalText();
-            }, 3000);
+            if (chatHeader) {
+                chatHeader.style.transform = '';
+                chatHeader.style.filter = '';
+            }
+
+            if (chatContainer) {
+                chatContainer.style.transform = '';
+                chatContainer.style.filter = '';
+            }
+
+            if (backgroundContainer) {
+                backgroundContainer.style.transform = '';
+                backgroundContainer.style.filter = '';
+            }
+
+            const layer = document.getElementById('glitchTransitionLayer');
+            if (layer) {
+                layer.remove();
+            }
+        }
+
+        function startExtremeGlitch() {
+            const GLITCH_DURATION_MS = 3000;
+            const overlay = document.querySelector('.dark-overlay');
+            const chatHeader = document.querySelector('.chat-header');
+            const layer = getOrCreateGlitchLayer();
+            const tears = Array.from(layer.querySelectorAll('.glitch-tear'));
+            const startTime = performance.now();
+            let lastTear = 0;
+            let lastJitter = 0;
+            let lastBlackout = 0;
+
+            layer.classList.add('active');
+
+            function rand(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function phase(elapsedMs) {
+                const t = elapsedMs / GLITCH_DURATION_MS;
+                if (t < 0.35) return 1; // warning instability
+                if (t < 0.8) return 2;  // takeover burst
+                return 3;               // terminal collapse
+            }
+
+            const tickInterval = setInterval(() => {
+                const elapsed = performance.now() - startTime;
+                const p = phase(elapsed);
+                const now = performance.now();
+
+                if (elapsed >= GLITCH_DURATION_MS) {
+                    clearInterval(tickInterval);
+                    fadeToBlackAndShowFinalText();
+                    return;
+                }
+
+                // Base red level drifts with phase for a less predictable warning profile.
+                if (overlay) {
+                    const alphaBase = p === 1 ? rand(0.74, 0.84) : p === 2 ? rand(0.82, 0.95) : rand(0.7, 0.88);
+                    const redBase = p === 2 ? rand(160, 255) : rand(120, 200);
+                    overlay.style.background = `rgba(${redBase.toFixed(0)}, ${rand(0, 18).toFixed(0)}, ${rand(0, 12).toFixed(0)}, ${alphaBase.toFixed(3)})`;
+                }
+
+                // Horizontal tearing strips - short bursts at irregular intervals.
+                const tearCadence = p === 1 ? 140 : p === 2 ? 70 : 95;
+                if (now - lastTear > tearCadence) {
+                    lastTear = now;
+                    tears.forEach((tear) => {
+                        const fire = Math.random() < (p === 2 ? 0.92 : 0.55);
+                        if (!fire) {
+                            tear.style.opacity = '0';
+                            return;
+                        }
+
+                        tear.style.top = `${rand(3, 94)}%`;
+                        tear.style.height = `${rand(3, p === 2 ? 22 : 14)}px`;
+                        tear.style.transform = `translateX(${rand(-55, 55).toFixed(1)}px) scaleX(${rand(0.9, 1.2).toFixed(2)})`;
+                        tear.style.opacity = `${rand(0.2, p === 2 ? 0.95 : 0.65).toFixed(3)}`;
+                    });
+                }
+
+                // Sync-loss jitter and chromatic split.
+                const jitterCadence = p === 2 ? 55 : 100;
+                if (now - lastJitter > jitterCadence) {
+                    lastJitter = now;
+                    const dx = rand(-1.5, 1.5) * (p === 2 ? 4 : 2);
+                    const dy = rand(-1, 1) * (p === 2 ? 2.6 : 1.4);
+                    const skew = rand(-1.8, 1.8) * (p === 2 ? 1.15 : 0.7);
+                    const split = p === 2 ? rand(1.2, 2.8) : rand(0.4, 1.4);
+                    const filter = `contrast(${rand(1.08, p === 2 ? 1.45 : 1.25).toFixed(2)}) brightness(${rand(0.85, 1.1).toFixed(2)}) saturate(${rand(0.95, 1.4).toFixed(2)}) drop-shadow(${split.toFixed(1)}px 0 0 rgba(255, 0, 0, 0.45)) drop-shadow(-${(split * 0.8).toFixed(1)}px 0 0 rgba(120, 255, 255, 0.25))`;
+
+                    if (chatContainer) {
+                        chatContainer.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) skewX(${skew.toFixed(2)}deg)`;
+                        chatContainer.style.filter = filter;
+                    }
+
+                    if (backgroundContainer) {
+                        backgroundContainer.style.transform = `translate(${(-dx * 0.5).toFixed(1)}px, ${(dy * 0.5).toFixed(1)}px)`;
+                        backgroundContainer.style.filter = `contrast(${rand(1.1, 1.5).toFixed(2)}) brightness(${rand(0.75, 1.05).toFixed(2)})`;
+                    }
+
+                    if (chatHeader) {
+                        chatHeader.style.transform = `translateX(${rand(-5, 5).toFixed(1)}px)`;
+                        chatHeader.style.filter = `contrast(${rand(1.05, 1.35).toFixed(2)})`;
+                    }
+                }
+
+                // Intermittent blackout pulses near collapse phase.
+                const blackoutCadence = p === 3 ? 130 : 240;
+                const blackoutChance = p === 3 ? 0.34 : p === 2 ? 0.16 : 0.06;
+                if (now - lastBlackout > blackoutCadence && Math.random() < blackoutChance) {
+                    lastBlackout = now;
+                    layer.classList.add('blackout');
+                    setTimeout(() => layer.classList.remove('blackout'), rand(70, 130));
+                }
+            }, 42);
+
+            glitchTransitionState = { tickInterval };
         }
         
         function fadeToBlackAndShowFinalText() {
@@ -1603,31 +1626,21 @@
             blackOverlay.style.background = '#000';
             blackOverlay.style.zIndex = '50';
             blackOverlay.style.opacity = '0';
-            blackOverlay.style.transition = 'opacity 1s ease-in';
+            blackOverlay.style.transition = 'opacity 0.1s linear';
             document.body.appendChild(blackOverlay);
             
             // Fade to black
             setTimeout(() => {
                 blackOverlay.style.opacity = '1';
             }, 100);
+
+            // Keep glitch active until black covers screen, then clean up.
+            setTimeout(() => {
+                stopExtremeGlitch();
+            }, 230);
             
             // After 1 second, show heads.gif FIRST, then text
             setTimeout(() => {
-                // STOP ALL SCREEN DISTORTIONS
-                document.body.style.animation = 'none';
-                document.body.classList.remove('extreme-glitch');
-                const chatHeader = document.querySelector('.chat-header');
-                if (chatHeader) chatHeader.style.animation = 'none';
-                const backgroundContainer = document.getElementById('backgroundContainer');
-                if (backgroundContainer) {
-                    backgroundContainer.style.animation = 'none';
-                    backgroundContainer.classList.remove('extreme-glitch');
-                }
-                const chatContainer = document.getElementById('chatContainer');
-                if (chatContainer) chatContainer.classList.remove('extreme-glitch');
-                const overlay = document.querySelector('.dark-overlay');
-                if (overlay) overlay.style.animation = 'none';
-                
                 // Show heads.gif FIRST with blur and dark overlay
                 const headsImg = document.createElement('img');
                 headsImg.src = 'heads.gif';
