@@ -265,6 +265,12 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             position: relative;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            line-height: 1.2;
+            max-width: 100%;
+            text-align: left;
         }
         
         .ca-btn:hover {
@@ -315,6 +321,7 @@
             .ca-btn {
                 padding: 8px 16px;
                 font-size: 0.9rem;
+                width: 100%;
             }
             
             .chat-panel {
@@ -348,9 +355,9 @@
             
             .ca-btn {
                 padding: 6px 12px;
-                font-size: 0.8rem;
+                font-size: 0.72rem;
                 flex: 1;
-                text-align: center;
+                min-width: 100%;
             }
             
             .floating-quote {
@@ -1857,7 +1864,30 @@
            }, 1000);
        }
        
-       enterButton.addEventListener('click', function() {
+       async function unlockAllAudio() {
+           if (window.__audioUnlocked) return;
+
+           const tracks = [staticAudio, helpAudio, musicAudio];
+           await Promise.all(tracks.map(async (audio) => {
+               if (!audio) return;
+               const previousMuted = audio.muted;
+               try {
+                   audio.muted = true;
+                   await audio.play();
+                   audio.pause();
+                   audio.currentTime = 0;
+               } catch (e) {
+                   console.log('Audio unlock attempt failed:', e);
+               } finally {
+                   audio.muted = previousMuted;
+               }
+           }));
+
+           window.__audioUnlocked = true;
+       }
+
+       enterButton.addEventListener('click', async function() {
+           await unlockAllAudio();
            introScreen.classList.add('hidden');
            
            setTimeout(() => {
