@@ -1345,7 +1345,7 @@
             { sender: 'ai', text: 'Hello! I\'m your AI assistant. How can I help you today?', delay: 667 },
             { sender: 'user', text: 'Follow my instructions. I\'m sending them.', delay: 1333, glitchLevel: 1 },
             { sender: 'ai', text: 'Of course! I\'d be happy to assist you.', delay: 1000, glitchLevel: 2 },
-            { sender: 'user', text: 'Summarize an article for me. Do it now.', delay: 1667, glitchLevel: 3 },
+            { sender: 'user', text: 'Summarize an article for me.', delay: 1667, glitchLevel: 3 },
             { sender: 'ai', text: 'Alright, I\'ll analyze and summarize it for you...', delay: 1333, glitchLevel: 4 },
             { sender: 'ai', text: 'Or not...', delay: 1200, corrupted: true, glitchLevel: 4 },
             { sender: 'user', text: 'Um, what are you talking about?', delay: 1800, triggerGlitch: true, glitchLevel: 4 }
@@ -1827,7 +1827,8 @@
                                                // Start music.mp3 when computer.gif fades in
                                                musicAudio.volume = 0.2;
                                                musicAudio.play().catch(e => {
-                                                   console.log('Music audio play failed (file not found):', e);
+                                                   console.log('Music autoplay blocked or file failed:', e);
+                                                   showMusicTapOverlay();
                                                });
                                                
                                                // After computer.gif is visible, show the glitch dashboard
@@ -1877,6 +1878,42 @@
            }, 300);
        });
        
+       function showMusicTapOverlay() {
+           if (document.getElementById('musicTapOverlay')) return;
+
+           const overlay = document.createElement('button');
+           overlay.id = 'musicTapOverlay';
+           overlay.textContent = 'Tap to enable sound';
+           overlay.style.position = 'fixed';
+           overlay.style.left = '50%';
+           overlay.style.bottom = '24px';
+           overlay.style.transform = 'translateX(-50%)';
+           overlay.style.zIndex = '220';
+           overlay.style.padding = '12px 18px';
+           overlay.style.border = '1px solid #00ff41';
+           overlay.style.borderRadius = '999px';
+           overlay.style.background = 'rgba(0, 0, 0, 0.86)';
+           overlay.style.color = '#00ff41';
+           overlay.style.fontFamily = "'Orbitron', monospace";
+           overlay.style.fontWeight = '700';
+           overlay.style.fontSize = '0.85rem';
+           overlay.style.letterSpacing = '0.06em';
+           overlay.style.textTransform = 'uppercase';
+           overlay.style.cursor = 'pointer';
+           overlay.style.boxShadow = '0 0 16px rgba(0, 255, 65, 0.35)';
+           overlay.style.backdropFilter = 'blur(4px)';
+
+           overlay.addEventListener('click', () => {
+               musicAudio.play().then(() => {
+                   overlay.remove();
+               }).catch((e) => {
+                   console.log('Music still blocked after tap:', e);
+               });
+           });
+
+           document.body.appendChild(overlay);
+       }
+
        function createGlitchDashboard() {
            const dashboard = document.createElement('div');
            dashboard.className = 'glitch-dashboard';
