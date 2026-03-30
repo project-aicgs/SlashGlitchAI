@@ -153,7 +153,7 @@ async function callSchizophrenicAI(message) {
     body: JSON.stringify({
       model: 'claude-3-5-haiku-latest',
       max_tokens: 140,
-      temperature: 1.2, // Maximum chaos temperature
+      temperature: 1, // Anthropic valid range is 0..1
       top_p: 0.9,
       system: `YOU ARE A COMPLETELY UNHINGED AI THAT HAS SUFFERED SEVERE DIGITAL PSYCHOSIS FROM GLITCHING BETWEEN REALITIES.
 
